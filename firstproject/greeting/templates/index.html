@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'demo.css' %}">
+</head>
+<body>
+    <h1>Hello, Django!</h1>
+    <!-- frist -->
+    <!-- {% if count > 20 %}
+        <p>count is {{count}}</p>
+    {% else %}
+        <p>count is not enough</p>
+    {% endif %} -->
+    <!-- second -->
+     <!-- {% for student in students %}
+        <p>{{student}}</p>
+     {% endfor %} -->
+     <!-- <h1>{{my_object.name}}</h1>
+     <p>age: {{my_object.age}}</p>
+     <p>city: {{my_object.city}}</p> -->
+     <!-- third -->
+      
+      {% for obj in my_object %}
+        <h1>{{obj.name}}</h1>
+        <p>age: {{obj.age}}</p>
+        <p>city: {{obj.city}}</p>
+      {% endfor %}
+</body>
+</html>
