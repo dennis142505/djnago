@@ -8,7 +8,6 @@
     <link rel="stylesheet" type="text/css" href="{% static 'demo.css' %}">
 </head>
 <body>
-    <h1>Hello, Django!</h1>
     <!-- frist -->
     <!-- {% if count > 20 %}
         <p>count is {{count}}</p>
@@ -24,10 +23,26 @@
      <p>city: {{my_object.city}}</p> -->
      <!-- third -->
       
-      {% for obj in my_object %}
+      <!-- {% for obj in my_object %}
         <h1>{{obj.name}}</h1>
         <p>age: {{obj.age}}</p>
         <p>city: {{obj.city}}</p>
-      {% endfor %}
+      {% endfor %} -->
+      <!-- <form action="" method="get">
+        <label>email</label>
+        <input type="email" name="email">
+        <label>password</label>
+        <input type="password" name="password">
+        <input type="submit", value="submit">
+      </form> -->
+      <h1>login</h1>
+      <form action="" method="POST">
+        {% csrf_token %}
+        <label>email</label><br>
+        <input type="email" name="email"><br>
+        <label>password</label><br>
+        <input type="password" name="password"><br>
+        <input type="submit", value="submit">
+      </form>
 </body>
 </html>
