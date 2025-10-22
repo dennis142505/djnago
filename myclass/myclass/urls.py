@@ -1,8 +1,9 @@
+from django.contrib import admin
 from django.urls import path
 from greeting import views
 
 urlpatterns = [
-    path('', views.greeting),
-    path('result', views.greeting),
+    path('admin/', admin.site.urls),
+    path('', views.greeting),        # form page
+    path('result/', views.greeting), # result page
 ]
-
