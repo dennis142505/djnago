@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add URL</title>
+</head>
+<body>
+
+<h2>Add a New URL</h2>
+
+{% if messages %}
+    {% for message in messages %}
+        <p style="color: red;">{{ message }}</p>
+    {% endfor %}
+{% endif %}
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save URL</button>
+</form>
+
+<br>
+<a href="{% url 'list_urls' %}">Back to URL List</a>
+
+</body>
+</html>

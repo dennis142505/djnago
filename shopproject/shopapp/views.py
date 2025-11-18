@@ -2,9 +2,12 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from .models import Product
 from .serializers import ProductSerializer
+from rest_framework.permissions import AllowAny as allowAny
+from rest_framework.decorators import permission_classes    
 
 # Add product / Show all products
 @api_view(['GET', 'POST'])
+@permission_classes([allowAny])
 def product_list(request):
     if request.method == 'GET':
         products = Product.objects.all()
@@ -20,6 +23,7 @@ def product_list(request):
 
 # Update / Delete a product using ID
 @api_view(['PUT', 'DELETE'])
+@permission_classes([allowAny])
 def product_detail(request, id):
     product = Product.objects.get(id=id)
 
