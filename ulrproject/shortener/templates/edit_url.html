@@ -3,80 +3,434 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit URL</title>
+    <title>Edit URL | Update Link</title>
 
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts: Inter for modern typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
     <style>
-        body {
-            background: #f5f6fa;
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+        * {
             margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        .container {
-            background: white;
-            width: 360px;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.2);
-            text-align: center;
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            position: relative;
         }
 
-        h2 {
-            margin-bottom: 20px;
-        }
-
-        form {
-            text-align: left;
-        }
-
-        form p {
-            margin-bottom: 12px;
-        }
-
-        button {
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            padding: 10px;
-            background: #4CAF50;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 2000" opacity="0.1"><path fill="none" stroke="white" stroke-width="2" d="M0 0 L2000 2000 M2000 0 L0 2000"/><circle cx="1000" cy="1000" r="600" stroke="white" stroke-width="1.5" fill="none"/><circle cx="1000" cy="1000" r="400" stroke="white" stroke-width="1" fill="none"/></svg>');
+            background-repeat: repeat;
+            pointer-events: none;
+        }
+
+        .card-modern {
+            background: rgba(255, 255, 255, 0.97);
+            backdrop-filter: blur(2px);
+            border-radius: 32px;
             border: none;
-            border-radius: 6px;
+            box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            overflow: hidden;
+            max-width: 500px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .card-modern:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 30px 50px -15px rgba(0, 0, 0, 0.4);
+        }
+
+        .card-header-custom {
+            background: linear-gradient(120deg, #f59e0b, #f97316);
+            padding: 1.8rem 2rem;
+            text-align: center;
+            border-bottom: none;
+        }
+
+        .card-header-custom h2 {
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            margin: 0;
             color: white;
+            font-size: 1.9rem;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .card-header-custom p {
+            color: rgba(255,255,255,0.9);
+            margin-top: 8px;
+            font-size: 0.9rem;
+        }
+
+        .card-body-custom {
+            padding: 2rem 2rem 1.8rem;
+        }
+
+        .brand-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.2);
+            width: 52px;
+            height: 52px;
+            border-radius: 60px;
+            margin-bottom: 0.5rem;
+        }
+
+        .brand-icon i {
+            font-size: 28px;
+            color: white;
+        }
+
+        /* Alert Messages */
+        .alert-custom {
+            border-radius: 60px;
+            border: none;
+            font-weight: 500;
+            padding: 0.7rem 1rem;
+            font-size: 0.85rem;
+            margin-bottom: 1.5rem;
+            animation: fadeSlideDown 0.3s ease;
+        }
+
+        .alert-success {
+            background-color: #c6f6d5;
+            color: #22543d;
+            border-left: 5px solid #38a169;
+        }
+
+        .alert-error, .alert-danger {
+            background-color: #fed7d7;
+            color: #742a2a;
+            border-left: 5px solid #e53e3e;
+        }
+
+        .alert-warning {
+            background-color: #feebc8;
+            color: #7c2d12;
+            border-left: 5px solid #ed8936;
+        }
+
+        .alert-info {
+            background-color: #cffafe;
+            color: #164e63;
+            border-left: 5px solid #0ea5e9;
+        }
+
+        @keyframes fadeSlideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Django Form Fields */
+        .django-form-fields {
+            margin-top: 0.5rem;
+        }
+
+        .django-form-fields p {
+            margin-bottom: 1.3rem;
+            position: relative;
+        }
+
+        .django-form-fields label {
+            font-weight: 600;
+            font-size: 0.8rem;
+            margin-bottom: 6px;
+            display: block;
+            color: #2d3748;
+            margin-left: 4px;
+        }
+
+        .input-icon-inside {
+            position: relative;
+        }
+
+        .input-icon-inside i {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            font-size: 1rem;
+            z-index: 2;
+            transition: color 0.2s;
+        }
+
+        .input-icon-inside input,
+        .input-icon-inside textarea,
+        .input-icon-inside select {
+            width: 100%;
+            padding: 0.9rem 1rem 0.9rem 2.8rem;
+            border-radius: 20px;
+            border: 1.5px solid #e2e8f0;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            transition: all 0.25s ease;
+            outline: none;
+            background-color: #fefefe;
+        }
+
+        .input-icon-inside input:focus,
+        .input-icon-inside textarea:focus,
+        .input-icon-inside select:focus {
+            border-color: #f59e0b;
+            box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.2);
+        }
+
+        .input-icon-inside input:focus + i,
+        .input-icon-inside textarea:focus + i,
+        .input-icon-inside select:focus + i {
+            color: #f59e0b;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .errorlist {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 6px;
+            margin-bottom: 0;
+        }
+
+        .errorlist li {
+            background: #fff5f5;
+            color: #e53e3e;
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
+
+        .helptext {
+            font-size: 0.7rem;
+            color: #6c757d;
+            display: block;
+            margin-top: 5px;
+            margin-left: 12px;
+        }
+
+        /* Button */
+        .btn-gradient {
+            background: linear-gradient(95deg, #f59e0b, #f97316);
+            border: none;
+            border-radius: 40px;
+            padding: 0.85rem;
+            font-weight: 700;
+            font-size: 1rem;
+            color: white;
+            transition: all 0.25s;
+            box-shadow: 0 8px 14px -6px rgba(245, 158, 11, 0.3);
+            width: 100%;
             cursor: pointer;
         }
 
-        button:hover {
-            background: #43a047;
+        .btn-gradient:hover {
+            background: linear-gradient(95deg, #e68a00, #e65c00);
+            transform: scale(1.01);
+            box-shadow: 0 12px 20px -10px rgba(245, 158, 11, 0.5);
         }
 
-        a {
+        .btn-gradient:active {
+            transform: scale(0.98);
+        }
+
+        /* Back Link */
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 1.2rem;
+            font-size: 0.9rem;
+            border-top: 1px solid #e9ecef;
+            padding-top: 1.3rem;
+            color: #4b5563;
             text-decoration: none;
-            color: #333;
-            display: inline-block;
-            margin-top: 15px;
+            transition: all 0.2s;
         }
 
-        a:hover {
-            color: #4CAF50;
+        .back-link a {
+            font-weight: 700;
+            color: #f59e0b;
+            text-decoration: none;
+            margin-left: 6px;
+        }
+
+        .back-link a:hover {
+            color: #f97316;
+            text-decoration: underline;
+        }
+
+        .back-link i {
+            margin-right: 5px;
+        }
+
+        @media (max-width: 480px) {
+            .card-body-custom {
+                padding: 1.5rem;
+            }
+            .card-header-custom h2 {
+                font-size: 1.5rem;
+            }
         }
     </style>
-
 </head>
+
 <body>
 
-    <div class="container">
+<div class="card-modern">
+    <div class="card-header-custom">
+        <div class="brand-icon mx-auto">
+            <i class="fas fa-edit"></i>
+        </div>
         <h2>Edit URL</h2>
+        <p>Update your shortened link</p>
+    </div>
+
+    <div class="card-body-custom">
+        <!-- Messages -->
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-custom alert-{{ message.tags }} d-flex align-items-center gap-2">
+                    {% if message.tags == 'success' %}
+                        <i class="fas fa-check-circle"></i>
+                    {% elif message.tags == 'error' or message.tags == 'danger' %}
+                        <i class="fas fa-exclamation-triangle"></i>
+                    {% elif message.tags == 'warning' %}
+                        <i class="fas fa-exclamation-circle"></i>
+                    {% else %}
+                        <i class="fas fa-info-circle"></i>
+                    {% endif %}
+                    <span>{{ message }}</span>
+                </div>
+            {% endfor %}
+        {% endif %}
 
         <form method="post">
             {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Update</button>
+            <div class="django-form-fields">
+                {% for field in form %}
+                    <div class="field-wrapper">
+                        {% if field.name == 'title' %}
+                            <div class="input-icon-inside">
+                                <i class="fas fa-heading"></i>
+                                {{ field }}
+                            </div>
+                        {% elif field.name == 'url' or field.name == 'original_url' or field.name == 'long_url' %}
+                            <div class="input-icon-inside">
+                                <i class="fas fa-link"></i>
+                                {{ field }}
+                            </div>
+                        {% elif field.name == 'short' or field.name == 'short_code' %}
+                            <div class="input-icon-inside">
+                                <i class="fas fa-code"></i>
+                                {{ field }}
+                            </div>
+                        {% elif field.name == 'description' %}
+                            <div class="input-icon-inside">
+                                <i class="fas fa-align-left"></i>
+                                {{ field }}
+                            </div>
+                        {% else %}
+                            <div class="input-icon-inside">
+                                <i class="fas fa-pencil-alt"></i>
+                                {{ field }}
+                            </div>
+                        {% endif %}
+                        {% if field.help_text %}
+                            <small class="helptext">{{ field.help_text }}</small>
+                        {% endif %}
+                        {% for error in field.errors %}
+                            <div class="errorlist"><i class="fas fa-circle-exclamation me-1"></i>{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+
+            <button type="submit" class="btn-gradient">
+                <i class="fas fa-save me-2"></i>Update URL
+            </button>
         </form>
 
-        <a href="{% url 'list_urls' %}">⬅ Back to List</a>
+        <div class="back-link">
+            <i class="fas fa-arrow-left"></i>
+            <a href="{% url 'list_urls' %}">Back to URL List</a>
+        </div>
     </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    (function() {
+        // Add placeholders to form fields
+        const titleField = document.querySelector('input[name="title"]');
+        if (titleField && !titleField.getAttribute('placeholder')) {
+            titleField.setAttribute('placeholder', 'e.g., Google Search');
+        }
+        
+        const urlField = document.querySelector('input[name="url"], input[name="original_url"], input[name="long_url"]');
+        if (urlField && !urlField.getAttribute('placeholder')) {
+            urlField.setAttribute('placeholder', 'https://example.com/your-long-url');
+        }
+        
+        const shortField = document.querySelector('input[name="short"], input[name="short_code"]');
+        if (shortField && !shortField.getAttribute('placeholder')) {
+            shortField.setAttribute('placeholder', 'custom-slug (optional)');
+        }
+
+        // Add input event for URL validation hint
+        if (urlField) {
+            urlField.addEventListener('input', function() {
+                let value = this.value.trim();
+                let feedbackEl = this.parentElement.querySelector('.url-feedback');
+                if (!feedbackEl) {
+                    feedbackEl = document.createElement('small');
+                    feedbackEl.className = 'helptext url-feedback';
+                    this.parentElement.appendChild(feedbackEl);
+                }
+                if (value && !value.startsWith('http')) {
+                    feedbackEl.innerHTML = '<i class="fas fa-info-circle me-1"></i>URL should start with http:// or https://';
+                    feedbackEl.style.color = '#f59e0b';
+                } else if (value) {
+                    feedbackEl.innerHTML = '<i class="fas fa-check-circle me-1"></i>Valid URL format';
+                    feedbackEl.style.color = '#38a169';
+                } else {
+                    feedbackEl.innerHTML = '';
+                }
+            });
+        }
+    })();
+</script>
 
 </body>
 </html>
